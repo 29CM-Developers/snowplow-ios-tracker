@@ -18,7 +18,7 @@ import Foundation
 public class OpenWindowEvent: SelfDescribingAbstract {
     
     override var schema: String {
-        return VisionOsSchemata.openWindow
+        return visionOsOpenWindow
     }
     
     override var payload: [String : Any] {

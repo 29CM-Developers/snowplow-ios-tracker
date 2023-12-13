@@ -14,6 +14,34 @@
 import Foundation
 import ARKit
 
+/// The type of TrackableAnchor.
+@objc(SPTrackableAnchorType)
+public enum TrackableAnchorType: Int {
+    /// A DeviceAnchor.
+    case device
+    /// A WorldAnchor.
+    case world
+    /// A HandAnchor.
+    case hand
+    /// An ImageAnchor.
+    case image
+}
+
+extension TrackableAnchorType {
+    var value: String {
+        switch self {
+        case .device:
+            return "device"
+        case .world:
+            return "world"
+        case .hand:
+            return "hand"
+        case .image:
+            return "image"
+        }
+    }
+}
+
 /**
  Properties for the ARKit trackable anchor entity.
  Entity schema: `iglu:com.apple.arkit/trackable_anchor/jsonschema/1-0-0`
@@ -22,19 +50,19 @@ import ARKit
 public class TrackableAnchorEntity: NSObject {
     
     /// A globally unique ID for a device anchor.
-    public var id: String
+    public var id: UUID
     /// Type of the anchor.
     public var type: TrackableAnchorType?
     /// Textual description of the anchor.
     public var anchorDescription: String?
     /// Whether ARKit is tracking the anchor.
     public var isTracked: Bool
-    /// The reference image that this image anchor tracks.
+    /// The reference image that this ImageAnchor tracks.
     public var referenceImage: ARReferenceImage?
     
     internal var entity: SelfDescribingJson {
         var data: [String : Any] = [
-            "id": id
+            "id": id.uuidString
         ]
         if let type = type { data["type"] = type }
         if let anchorDescription = anchorDescription { data["description"] = anchorDescription }
@@ -48,16 +76,16 @@ public class TrackableAnchorEntity: NSObject {
             data["reference_image"] = imageData
         }
 
-        return SelfDescribingJson(schema: VisionOsSchemata.trackableAnchor, andData: data)
+        return SelfDescribingJson(schema: visionOsTrackableAnchor, andData: data)
     }
     
     /// - Parameter id: A globally unique ID for a device anchor.
     /// - Parameter type: Type of the anchor.
     /// - Parameter anchorDescription: Textual description of the anchor.
     /// - Parameter isTracked: Whether ARKit is tracking the anchor.
-    /// - Parameter referenceImage: The reference image that this image anchor tracks.
+    /// - Parameter referenceImage: The reference image that this ImageAnchor tracks.
     public init(
-        id: String, 
+        id: UUID = UUID(),
         type: TrackableAnchorType? = nil,
         anchorDescription: String? = nil,
         isTracked: Bool,
@@ -76,7 +104,7 @@ public class TrackableAnchorEntity: NSObject {
     /// - Parameter referenceImage: The reference image that this image anchor tracks.
     @objc
     public init(
-        id: String,
+        id: UUID = UUID(),
         anchorDescription: String? = nil,
         isTracked: Bool,
         referenceImage: ARReferenceImage? = nil
@@ -85,35 +113,5 @@ public class TrackableAnchorEntity: NSObject {
         self.anchorDescription = anchorDescription
         self.isTracked = isTracked
         self.referenceImage = referenceImage
-    }
-}
-
-// MARK: - TrackableAnchorType
-
-/// The visibility of the user's upper limbs in a VisionOS immersive space.
-@objc(SPTrackableAnchorType)
-public enum TrackableAnchorType: Int {
-    /// TODO.
-    case device
-    /// TODO.
-    case world
-    /// TODO.
-    case hand
-    /// TODO.
-    case image
-}
-
-extension TrackableAnchorType {
-    var value: String {
-        switch self {
-        case .device:
-            return "device"
-        case .world:
-            return "world"
-        case .hand:
-            return "hand"
-        case .image:
-            return "image"
-        }
     }
 }

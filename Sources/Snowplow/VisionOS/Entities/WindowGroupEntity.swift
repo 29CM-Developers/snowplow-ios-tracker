@@ -21,23 +21,23 @@ import Foundation
 public class WindowGroupEntity: NSObject {
     
     /// Randomly generated ID for the current window within the group.
-    public var id: String
+    public var id: UUID
     /// A localized string key to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
     public var titleKey: String?
     /// A string that uniquely identifies the window group. Identifiers must be unique among the window groups in your app.
-    public var windowGroupID: String?
+    public var windowGroupId: String?
     /// A specification for the appearance and interaction of a window.
     public var windowStyle: WindowStyle
     
     internal var entity: SelfDescribingJson {
         var data: [String : Any] = [
-            "id": id
+            "id": id.uuidString
         ]
         if let titleKey = titleKey { data["title_key"] = titleKey }
-        if let windowGroupID = windowGroupID { data["window_group_id"] = windowGroupID }
+        if let windowGroupId = windowGroupId { data["window_group_id"] = windowGroupId }
         data["window_style"] = windowStyle.value
 
-        return SelfDescribingJson(schema: VisionOsSchemata.windowGroup, andData: data)
+        return SelfDescribingJson(schema: visionOsWindowGroup, andData: data)
     }
     
     /// - Parameter id: Randomly generated ID for the current window within the group.
@@ -46,14 +46,14 @@ public class WindowGroupEntity: NSObject {
     /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     @objc
     public init(
-        id: String = UUID().uuidString,
+        id: UUID = UUID(),
         titleKey: String? = nil,
         windowGroupID: String? = nil,
         windowStyle: WindowStyle
     ) {
         self.id = id
         self.titleKey = titleKey
-        self.windowGroupID = windowGroupID
+        self.windowGroupId = windowGroupID
         self.windowStyle = windowStyle
     }
 }

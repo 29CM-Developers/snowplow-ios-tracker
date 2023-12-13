@@ -18,7 +18,7 @@ import Foundation
 public class DismissSpaceEvent: SelfDescribingAbstract {
     
     override var schema: String {
-        return VisionOsSchemata.dismissSpace
+        return visionOsDismissSpace
     }
     
     override var payload: [String : Any] {

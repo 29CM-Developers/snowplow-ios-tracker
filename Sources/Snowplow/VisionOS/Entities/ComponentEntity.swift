@@ -22,33 +22,39 @@ import RealityFoundation
 public class ComponentEntity: NSObject {
     
     /// A globally unique ID for a component.
-    public var id: String
+    public var id: UUID
     /// Type of the component, e.g. "PointLightComponent".
     public var type: String
+    // Unique IDs of the RealityKit entity(s) that this component is attached to.
+    public var entityIds: [UUID]
     /// Textual description of the component.
     public var componentDescription: String?
     
     internal var entity: SelfDescribingJson {
         var data: [String : Any] = [
-            "id": id,
+            "id": id.uuidString,
             "type": type
         ]
+        data["entityIds"] = entityIds.map({ $0.uuidString })
         if let componentDescription = componentDescription { data["description"] = componentDescription }
         
-        return SelfDescribingJson(schema: VisionOsSchemata.component, andData: data)
+        return SelfDescribingJson(schema: visionOsComponent, andData: data)
     }
     
     /// - Parameter id: A globally unique ID for a component.
     /// - Parameter type: Type of the component, e.g. "PointLightComponent".
+    /// - Parameter entityIds: Unique IDs of the RealityKit entity(s) that this component is attached to.
     /// - Parameter componentDescription: Textual description of the component.
     @objc
     init(
-        id: String,
+        id: UUID = UUID(),
         type: String,
+        entityIds: [UUID],
         componentDescription: String? = nil
     ) {
         self.id = id
         self.type = type
+        self.entityIds = entityIds
         self.componentDescription = componentDescription
     }
 }

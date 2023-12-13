@@ -21,7 +21,7 @@ import Foundation
 public class WindowEntity: NSObject {
     
     /// A unique string identifier that you can use to open the window.
-    public var id: String?
+    public var id: UUID?
     /// A localized string key to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
     public var titleKey: String?
     /// A specification for the appearance and interaction of a window.
@@ -31,10 +31,10 @@ public class WindowEntity: NSObject {
         var data: [String : Any] = [
             "window_style": windowStyle.value
         ]
-        if let id = id { data["id"] = id }
+        if let id = id { data["id"] = id.uuidString }
         if let titleKey = titleKey { data["title_key"] = titleKey }
 
-        return SelfDescribingJson(schema: VisionOsSchemata.window, andData: data)
+        return SelfDescribingJson(schema: visionOsWindow, andData: data)
     }
     
     /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
@@ -43,7 +43,7 @@ public class WindowEntity: NSObject {
     @objc
     public init(
         windowStyle: WindowStyle,
-        id: String? = nil,
+        id: UUID? = nil,
         titleKey: String? = nil
     ) {
         self.id = id

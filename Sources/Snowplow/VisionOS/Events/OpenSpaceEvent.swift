@@ -18,7 +18,7 @@ import Foundation
 public class OpenSpaceEvent: SelfDescribingAbstract {
     
     override var schema: String {
-        return VisionOsSchemata.openSpace
+        return visionOsOpenSpace
     }
     
     override var payload: [String : Any] {

@@ -20,40 +20,52 @@ import Foundation
 @objc(SPRealityKitEntity)
 public class RealityKitEntity: NSObject {
     
-//    /// Randomly generated ID for the view of the immersive space by the tracker.
-//    public var id: String
-//    /// The identifier of the immersive space to present.
-//    public var immersiveSpaceId: String?
-//    /// The style of an immersive space.
-//    public var immersionStyle: ImmersionStyle
-//    /// Preferred visibility of the user's upper limbs, while an immersive space scene is presented.
-//    public var upperLimbVisibility: UpperLimbVisibility
-//    
-//    internal var entity: SelfDescribingJson {
-//        var data: [String : Any] = [
-//            "id": id
-//        ]
-//        if let immersiveSpaceId = immersiveSpaceId { data["immersive_space_id"] = immersiveSpaceId }
-//        data["immersion_style"] = immersionStyle.value
-//        data["upper_limb_visibility"] = upperLimbVisibility.value
-//
-//        return SelfDescribingJson(schema: VisionOsSchemata.immersiveSpace, andData: data)
-//    }
-//    
-//    /// - Parameter id: Randomly generated ID for the view of the immersive space by the tracker.
-//    /// - Parameter immersiveSpaceId: A localized string key to use for the window's title in system menus and in the window's title bar.
-//    /// - Parameter immersionStyle: A specification for the appearance and interaction of a window.
-//    /// - Parameter upperLimbVisibility: A specification for the appearance and interaction of a window.
-//    @objc
-//    public init(
-//        id: String,
-//        immersiveSpaceId: String? = nil,
-//        immersionStyle: ImmersionStyle,
-//        upperLimbVisibility: UpperLimbVisibility
-//    ) {
-//        self.id = id
-//        self.immersiveSpaceId = immersiveSpaceId
-//        self.immersionStyle = immersionStyle
-//        self.upperLimbVisibility = upperLimbVisibility
-//    }
+    /// The stable identity of the entity.
+    var id: UUID
+    /// The name of the entity.
+    var name: String?
+    /// The parent entity identity.
+    var parentEntityId: UUID?
+    /// The identity of the nearest ancestor entity that can act as an anchor.
+    var anchorId: UUID?
+    /// The stable identity of the scene that owns the entity.
+    var sceneId: UUID?
+    /// The name of the scene that owns the entity.
+    var sceneName: String?
+    
+    internal var entity: SelfDescribingJson {
+        var data: [String : Any] = [
+            "id": id.uuidString
+        ]
+        if let name = name { data["name"] = name }
+        if let parentEntityId = parentEntityId { data["parent_entity_id"] = parentEntityId.uuidString }
+        if let anchorId = anchorId { data["anchor_id"] = anchorId.uuidString }
+        if let sceneId = sceneId { data["scene_id"] = sceneId.uuidString }
+        if let sceneName = sceneName { data["scene_name"] = sceneName }
+        
+        return SelfDescribingJson(schema: visionOsRealityKitEntity, andData: data)
+    }
+    
+    /// - Parameter id: The stable identity of the entity.
+    /// - Parameter name: The name of the entity.
+    /// - Parameter parentEntityID: The parent entity identity.
+    /// - Parameter anchorID: The identity of the nearest ancestor entity that can act as an anchor.
+    /// - Parameter sceneID: The stable identity of the scene that owns the entity.
+    /// - Parameter sceneName: The name of the scene that owns the entity.
+    @objc
+    public init(
+        id: UUID = UUID(),
+        name: String? = nil,
+        parentEntityID: UUID? = nil,
+        anchorID: UUID? = nil,
+        sceneID: UUID? = nil,
+        sceneName: String? = nil
+    ) {
+        self.id = id
+        self.name = name
+        self.parentEntityId = parentEntityID
+        self.anchorId = anchorID
+        self.sceneId = sceneID
+        self.sceneName = sceneName
+    }
 }
