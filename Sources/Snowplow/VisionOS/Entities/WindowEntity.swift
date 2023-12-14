@@ -22,8 +22,8 @@ public class WindowEntity: NSObject {
     
     /// A unique string identifier that you can use to open the window.
     public var id: UUID?
-    /// A localized string key to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
-    public var titleKey: String?
+    /// A string to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
+    public var title: String?
     /// A specification for the appearance and interaction of a window.
     public var windowStyle: WindowStyle
     
@@ -32,22 +32,22 @@ public class WindowEntity: NSObject {
             "window_style": windowStyle.value
         ]
         if let id = id { data["id"] = id.uuidString }
-        if let titleKey = titleKey { data["title_key"] = titleKey }
+        if let title = title { data["title"] = title }
 
         return SelfDescribingJson(schema: visionOsWindow, andData: data)
     }
     
-    /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     /// - Parameter id: A unique string identifier that you can use to open the window.
-    /// - Parameter titleKey: A localized string key to use for the window's title in system menus and in the window's title bar.
+    /// - Parameter title: A string to use for the window's title in system menus and in the window's title bar.
+    /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     @objc
     public init(
-        windowStyle: WindowStyle,
         id: UUID? = nil,
-        titleKey: String? = nil
+        title: String? = nil,
+        windowStyle: WindowStyle
     ) {
         self.id = id
-        self.titleKey = titleKey
+        self.title = title
         self.windowStyle = windowStyle
     }
 }

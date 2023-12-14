@@ -42,6 +42,20 @@ extension TrackableAnchorType {
     }
 }
 
+public protocol ImageAnchorDetails {
+    var widthDetails: Double { get }
+    var heightDetails: Double { get }
+    var descriptionDetails: String { get }
+    var nameDetails: String? { get }
+}
+
+extension ARReferenceImage: ImageAnchorDetails {
+    public var widthDetails: Double { return self.physicalSize.width }
+    public var heightDetails: Double { return self.physicalSize.height }
+    public var descriptionDetails: String { return self.description }
+    public var nameDetails: String? { return self.name }
+}
+
 /**
  Properties for the ARKit trackable anchor entity.
  Entity schema: `iglu:com.apple.arkit/trackable_anchor/jsonschema/1-0-0`
@@ -58,21 +72,21 @@ public class TrackableAnchorEntity: NSObject {
     /// Whether ARKit is tracking the anchor.
     public var isTracked: Bool
     /// The reference image that this ImageAnchor tracks.
-    public var referenceImage: ARReferenceImage?
+    public var referenceImage: ImageAnchorDetails?
     
     internal var entity: SelfDescribingJson {
         var data: [String : Any] = [
             "id": id.uuidString
         ]
-        if let type = type { data["type"] = type }
+        if let type = type { data["type"] = type.value }
         if let anchorDescription = anchorDescription { data["description"] = anchorDescription }
         data["is_tracked"] = isTracked
         if let referenceImage = referenceImage {
-            var imageData: [String : Any] = [
-                "physical_size": "\(referenceImage.physicalSize.width)x\(referenceImage.physicalSize.height)",
-                "description": referenceImage.description
+            let imageData: [String : Any] = [
+                "physical_size": "\(referenceImage.widthDetails)x\(referenceImage.heightDetails)",
+                "description": referenceImage.descriptionDetails
             ]
-            if let name = referenceImage.name { data["name"] = name }
+            if let name = referenceImage.nameDetails { data["name"] = name }
             data["reference_image"] = imageData
         }
 
@@ -89,7 +103,7 @@ public class TrackableAnchorEntity: NSObject {
         type: TrackableAnchorType? = nil,
         anchorDescription: String? = nil,
         isTracked: Bool,
-        referenceImage: ARReferenceImage? = nil
+        referenceImage: ImageAnchorDetails? = nil
     ) {
         self.id = id
         self.type = type
@@ -101,17 +115,14 @@ public class TrackableAnchorEntity: NSObject {
     /// - Parameter id: A globally unique ID for a device anchor.
     /// - Parameter anchorDescription: Textual description of the anchor.
     /// - Parameter isTracked: Whether ARKit is tracking the anchor.
-    /// - Parameter referenceImage: The reference image that this image anchor tracks.
     @objc
     public init(
         id: UUID = UUID(),
         anchorDescription: String? = nil,
-        isTracked: Bool,
-        referenceImage: ARReferenceImage? = nil
+        isTracked: Bool
     ) {
         self.id = id
         self.anchorDescription = anchorDescription
         self.isTracked = isTracked
-        self.referenceImage = referenceImage
     }
 }
