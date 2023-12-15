@@ -18,22 +18,29 @@ import Foundation
  Entity schema: `iglu:com.apple.swiftui/window/jsonschema/1-0-0`
  */
 @objc(SPWindowEntity)
-public class WindowEntity: NSObject {
+public class WindowEntity: SelfDescribingJson {
     
     /// A unique string identifier that you can use to open the window.
+    @objc
     public var id: String?
+    
     /// A string to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
+    @objc
     public var title: String?
+    
     /// A specification for the appearance and interaction of a window.
     public var windowStyle: WindowStyle?
     
-    internal var entity: SelfDescribingJson {
-        var data: [String : Any] = [:]
-        if let id = id { data["id"] = id }
-        if let title = title { data["title"] = title }
-        if let style = windowStyle { data["window_style"] = style.value }
-
-        return SelfDescribingJson(schema: visionOsWindow, andData: data)
+    @objc
+    override public var data: [String : Any] {
+        get {
+            var data: [String : Any] = [:]
+            if let id = id { data["id"] = id }
+            if let title = title { data["title"] = title }
+            if let style = windowStyle { data["window_style"] = style.value }
+            return data
+        }
+        set {}
     }
     
     /// - Parameter id: A unique string identifier that you can use to open the window.
@@ -47,6 +54,7 @@ public class WindowEntity: NSObject {
         self.id = id
         self.title = title
         self.windowStyle = windowStyle
+        super.init(schema: visionOsWindow, andData: [:])
     }
     
     /// - Parameter id: A unique string identifier that you can use to open the window.
@@ -58,5 +66,13 @@ public class WindowEntity: NSObject {
     ) {
         self.id = id
         self.title = title
+        super.init(schema: visionOsWindow, andData: [:])
+    }
+    
+    /// A specification for the appearance and interaction of a window.
+    @objc
+    public func windowStyle(_ windowStyle: WindowStyle) -> Self {
+        self.windowStyle = windowStyle
+        return self
     }
 }

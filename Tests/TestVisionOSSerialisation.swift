@@ -26,13 +26,13 @@ class TestVisionOSSerialisation: XCTestCase {
             entityUuids: [id2],
             componentDescription: "transforms things"
         )
-        let entity = component.entity
+        let entity = component.data
         
-        XCTAssertEqual(visionOsComponent, entity.schema)
-        XCTAssertEqual(id.uuidString, entity.data["id"] as? String)
-        XCTAssertEqual("Transform", entity.data["type"] as? String)
-        XCTAssertEqual("transforms things", entity.data["description"] as? String)
-        XCTAssertEqual([id2.uuidString], entity.data["entity_uuids"] as? Array<String>)
+        XCTAssertEqual(visionOsComponent, component.schema)
+        XCTAssertEqual(id.uuidString, entity["id"] as? String)
+        XCTAssertEqual("Transform", entity["type"] as? String)
+        XCTAssertEqual("transforms things", entity["description"] as? String)
+        XCTAssertEqual([id2.uuidString], entity["entity_uuids"] as? Array<String>)
     }
     
     func testBuildsImmersiveSpaceEntity() {
@@ -42,17 +42,17 @@ class TestVisionOSSerialisation: XCTestCase {
             immersionStyle: ImmersionStyle.automatic,
             upperLimbVisibility: UpperLimbVisibility.visible
         )
-        let entity = space.entity
+        let entity = space.data
         
-        XCTAssertEqual(visionOsImmersiveSpace, entity.schema)
-        XCTAssertEqual(id.uuidString, entity.data["id"] as? String)
-        XCTAssertEqual("space_123", entity.data["immersive_space_id"] as? String)
-        XCTAssertEqual("automatic", entity.data["immersion_style"] as? String)
-        XCTAssertEqual("visible", entity.data["upper_limb_visibility"] as? String)
+        XCTAssertEqual(visionOsImmersiveSpace, space.schema)
+        XCTAssertEqual(id.uuidString, entity["id"] as? String)
+        XCTAssertEqual("space_123", entity["immersive_space_id"] as? String)
+        XCTAssertEqual("automatic", entity["immersion_style"] as? String)
+        XCTAssertEqual("visible", entity["upper_limb_visibility"] as? String)
     }
     
     func testBuildsRealityKitEntity() {
-        let rkEntity = RealityKitEntity(
+        let entityEntity = RealityKitEntity(
             id: "12345",
             name: "entity_entity",
             parentEntityID: "1234567",
@@ -61,16 +61,16 @@ class TestVisionOSSerialisation: XCTestCase {
             sceneName: "scene",
             uuid: id
         )
-        let entity = rkEntity.entity
+        let entity = entityEntity.data
         
-        XCTAssertEqual(visionOsRealityKitEntity, entity.schema)
-        XCTAssertEqual("12345", entity.data["id"] as? String)
-        XCTAssertEqual("entity_entity", entity.data["name"] as? String)
-        XCTAssertEqual("1234567", entity.data["parent_entity_id"] as? String)
-        XCTAssertEqual("6789", entity.data["anchor_id"] as? String)
-        XCTAssertEqual("123", entity.data["scene_id"] as? String)
-        XCTAssertEqual("scene", entity.data["scene_name"] as? String)
-        XCTAssertEqual(id.uuidString, entity.data["uuid"] as? String)
+        XCTAssertEqual(visionOsRealityKitEntity, entityEntity.schema)
+        XCTAssertEqual("12345", entity["id"] as? String)
+        XCTAssertEqual("entity_entity", entity["name"] as? String)
+        XCTAssertEqual("1234567", entity["parent_entity_id"] as? String)
+        XCTAssertEqual("6789", entity["anchor_id"] as? String)
+        XCTAssertEqual("123", entity["scene_id"] as? String)
+        XCTAssertEqual("scene", entity["scene_name"] as? String)
+        XCTAssertEqual(id.uuidString, entity["uuid"] as? String)
     }
     
     func testBuildsTrackableAnchorEntity() {
@@ -81,14 +81,14 @@ class TestVisionOSSerialisation: XCTestCase {
             isTracked: true,
             referenceImage: MockReferenceImage()
         )
-        let entity = anchor.entity
-        let imageMap = entity.data["reference_image"] as? [String : Any]
+        let entity = anchor.data
+        let imageMap = entity["reference_image"] as? [String : Any]
         
-        XCTAssertEqual(visionOsTrackableAnchor, entity.schema)
-        XCTAssertEqual(id.uuidString, entity.data["id"] as? String)
-        XCTAssertEqual("hand", entity.data["type"] as? String)
-        XCTAssertEqual("an anchor", entity.data["description"] as? String)
-        XCTAssertEqual(true, entity.data["is_tracked"] as? Bool)
+        XCTAssertEqual(visionOsTrackableAnchor, anchor.schema)
+        XCTAssertEqual(id.uuidString, entity["id"] as? String)
+        XCTAssertEqual("hand", entity["type"] as? String)
+        XCTAssertEqual("an anchor", entity["description"] as? String)
+        XCTAssertEqual(true, entity["is_tracked"] as? Bool)
         if let map = imageMap {
             if let width = map["width"] {
                 XCTAssertEqual(3.0, width as? Double)
@@ -111,12 +111,12 @@ class TestVisionOSSerialisation: XCTestCase {
             title: "window title",
             windowStyle: .automatic
         )
-        let entity = window.entity
+        let entity = window.data
         
-        XCTAssertEqual(visionOsWindow, entity.schema)
-        XCTAssertEqual("12345", entity.data["id"] as? String)
-        XCTAssertEqual("window title", entity.data["title"] as? String)
-        XCTAssertEqual("automatic", entity.data["window_style"] as? String)
+        XCTAssertEqual(visionOsWindow, window.schema)
+        XCTAssertEqual("12345", entity["id"] as? String)
+        XCTAssertEqual("window title", entity["title"] as? String)
+        XCTAssertEqual("automatic", entity["window_style"] as? String)
     }
     
     func testBuildsWindowGroupEntity() {
@@ -126,13 +126,13 @@ class TestVisionOSSerialisation: XCTestCase {
             windowGroupID: "group_id",
             windowStyle: .plain
         )
-        let entity = windows.entity
+        let entity = windows.data
         
-        XCTAssertEqual(visionOsWindowGroup, entity.schema)
-        XCTAssertEqual(id.uuidString, entity.data["id"] as? String)
-        XCTAssertEqual("title", entity.data["title_key"] as? String)
-        XCTAssertEqual("group_id", entity.data["window_group_id"] as? String)
-        XCTAssertEqual("plain", entity.data["window_style"] as? String)
+        XCTAssertEqual(visionOsWindowGroup, windows.schema)
+        XCTAssertEqual(id.uuidString, entity["id"] as? String)
+        XCTAssertEqual("title", entity["title_key"] as? String)
+        XCTAssertEqual("group_id", entity["window_group_id"] as? String)
+        XCTAssertEqual("plain", entity["window_style"] as? String)
     }
 }
 

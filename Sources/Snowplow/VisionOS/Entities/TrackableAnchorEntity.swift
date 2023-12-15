@@ -42,6 +42,8 @@ extension TrackableAnchorType {
     }
 }
 
+/// The details of a ReferenceImage used for an ImageAnchor.
+@objc(SPImageAnchorDetails)
 public protocol ImageAnchorDetails {
     var widthDetails: Double { get }
     var heightDetails: Double { get }
@@ -61,36 +63,46 @@ extension ARReferenceImage: ImageAnchorDetails {
  Entity schema: `iglu:com.apple.arkit/trackable_anchor/jsonschema/1-0-0`
  */
 @objc(SPTrackableAnchorEntity)
-public class TrackableAnchorEntity: NSObject {
+public class TrackableAnchorEntity: SelfDescribingJson {
     
     /// A globally unique ID for a TrackableAnchor that distinguishes this anchor from all other anchors.
+    @objc
     public var id: UUID
+    
     /// Type of the anchor.
     public var type: TrackableAnchorType?
+    
     /// Textual description of the anchor.
+    @objc
     public var anchorDescription: String?
+    
     /// Whether ARKit is tracking the anchor.
+    @objc
     public var isTracked: Bool
+    
     /// For ImageAnchors, the reference image tracked.
     public var referenceImage: ImageAnchorDetails?
     
-    internal var entity: SelfDescribingJson {
-        var data: [String : Any] = [
-            "id": id.uuidString
-        ]
-        if let type = type { data["type"] = type.value }
-        if let anchorDescription = anchorDescription { data["description"] = anchorDescription }
-        data["is_tracked"] = isTracked
-        if let referenceImage = referenceImage {
-            let imageData: [String : Any] = [
-                "physical_size": "\(referenceImage.widthDetails)x\(referenceImage.heightDetails)",
-                "description": referenceImage.descriptionDetails
+    @objc
+    override public var data: [String : Any] {
+        get {
+            var data: [String : Any] = [
+                "id": id.uuidString
             ]
-            if let name = referenceImage.nameDetails { data["name"] = name }
-            data["reference_image"] = imageData
+            if let type = type { data["type"] = type.value }
+            if let anchorDescription = anchorDescription { data["description"] = anchorDescription }
+            data["is_tracked"] = isTracked
+            if let referenceImage = referenceImage {
+                let imageData: [String : Any] = [
+                    "physical_size": "\(referenceImage.widthDetails)x\(referenceImage.heightDetails)",
+                    "description": referenceImage.descriptionDetails
+                ]
+                if let name = referenceImage.nameDetails { data["name"] = name }
+                data["reference_image"] = imageData
+            }
+            return data
         }
-
-        return SelfDescribingJson(schema: visionOsTrackableAnchor, andData: data)
+        set {}
     }
     
     /// - Parameter id: A globally unique ID for a device anchor that distinguishes this anchor from all other anchors.
@@ -110,6 +122,7 @@ public class TrackableAnchorEntity: NSObject {
         self.anchorDescription = anchorDescription
         self.isTracked = isTracked
         self.referenceImage = referenceImage
+        super.init(schema: visionOsTrackableAnchor, andData: [:])
     }
     
     /// - Parameter id: A globally unique ID for a device anchor that distinguishes this anchor from all other anchors.
@@ -124,5 +137,20 @@ public class TrackableAnchorEntity: NSObject {
         self.id = id
         self.anchorDescription = anchorDescription
         self.isTracked = isTracked
+        super.init(schema: visionOsTrackableAnchor, andData: [:])
+    }
+    
+    /// Type of the anchor.
+    @objc
+    public func type(_ type: TrackableAnchorType) -> Self {
+        self.type = type
+        return self
+    }
+    
+    /// For ImageAnchors, the reference image tracked.
+    @objc
+    public func referenceImage(_ referenceImage: ImageAnchorDetails) -> Self {
+        self.referenceImage = referenceImage
+        return self
     }
 }
