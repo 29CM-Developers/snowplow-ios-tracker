@@ -21,18 +21,17 @@ import Foundation
 public class WindowEntity: NSObject {
     
     /// A unique string identifier that you can use to open the window.
-    public var id: UUID?
+    public var id: String?
     /// A string to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
     public var title: String?
     /// A specification for the appearance and interaction of a window.
-    public var windowStyle: WindowStyle
+    public var windowStyle: WindowStyle?
     
     internal var entity: SelfDescribingJson {
-        var data: [String : Any] = [
-            "window_style": windowStyle.value
-        ]
-        if let id = id { data["id"] = id.uuidString }
+        var data: [String : Any] = [:]
+        if let id = id { data["id"] = id }
         if let title = title { data["title"] = title }
+        if let style = windowStyle { data["window_style"] = style.value }
 
         return SelfDescribingJson(schema: visionOsWindow, andData: data)
     }
@@ -40,14 +39,24 @@ public class WindowEntity: NSObject {
     /// - Parameter id: A unique string identifier that you can use to open the window.
     /// - Parameter title: A string to use for the window's title in system menus and in the window's title bar.
     /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
-    @objc
     public init(
-        id: UUID? = nil,
+        id: String? = nil,
         title: String? = nil,
-        windowStyle: WindowStyle
+        windowStyle: WindowStyle? = nil
     ) {
         self.id = id
         self.title = title
         self.windowStyle = windowStyle
+    }
+    
+    /// - Parameter id: A unique string identifier that you can use to open the window.
+    /// - Parameter title: A string to use for the window's title in system menus and in the window's title bar.
+    @objc
+    public init(
+        id: String? = nil,
+        title: String? = nil
+    ) {
+        self.id = id
+        self.title = title
     }
 }

@@ -63,7 +63,7 @@ extension ARReferenceImage: ImageAnchorDetails {
 @objc(SPTrackableAnchorEntity)
 public class TrackableAnchorEntity: NSObject {
     
-    /// A globally unique ID for a device anchor.
+    /// A globally unique ID for a TrackableAnchor that distinguishes this anchor from all other anchors.
     public var id: UUID
     /// Type of the anchor.
     public var type: TrackableAnchorType?
@@ -71,7 +71,7 @@ public class TrackableAnchorEntity: NSObject {
     public var anchorDescription: String?
     /// Whether ARKit is tracking the anchor.
     public var isTracked: Bool
-    /// The reference image that this ImageAnchor tracks.
+    /// For ImageAnchors, the reference image tracked.
     public var referenceImage: ImageAnchorDetails?
     
     internal var entity: SelfDescribingJson {
@@ -93,11 +93,11 @@ public class TrackableAnchorEntity: NSObject {
         return SelfDescribingJson(schema: visionOsTrackableAnchor, andData: data)
     }
     
-    /// - Parameter id: A globally unique ID for a device anchor.
+    /// - Parameter id: A globally unique ID for a device anchor that distinguishes this anchor from all other anchors.
     /// - Parameter type: Type of the anchor.
     /// - Parameter anchorDescription: Textual description of the anchor.
     /// - Parameter isTracked: Whether ARKit is tracking the anchor.
-    /// - Parameter referenceImage: The reference image that this ImageAnchor tracks.
+    /// - Parameter referenceImage: For ImageAnchors, the reference image tracked
     public init(
         id: UUID = UUID(),
         type: TrackableAnchorType? = nil,
@@ -112,7 +112,7 @@ public class TrackableAnchorEntity: NSObject {
         self.referenceImage = referenceImage
     }
     
-    /// - Parameter id: A globally unique ID for a device anchor.
+    /// - Parameter id: A globally unique ID for a device anchor that distinguishes this anchor from all other anchors.
     /// - Parameter anchorDescription: Textual description of the anchor.
     /// - Parameter isTracked: Whether ARKit is tracking the anchor.
     @objc
