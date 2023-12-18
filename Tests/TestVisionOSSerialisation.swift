@@ -12,7 +12,6 @@
 //  language governing permissions and limitations there under.
 
 import XCTest
-import ARKit
 @testable import SnowplowTracker
 
 class TestVisionOSSerialisation: XCTestCase {
@@ -108,7 +107,7 @@ class TestVisionOSSerialisation: XCTestCase {
     func testBuildsWindowEntity() {
         let window = WindowEntity(
             id: "12345",
-            title: "window title",
+            titleKey: "window title",
             windowStyle: .automatic
         )
         let entity = window.data

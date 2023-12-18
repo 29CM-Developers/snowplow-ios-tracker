@@ -12,7 +12,6 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-import RealityFoundation
 
 /**
  Properties for the RealityKit component entity.

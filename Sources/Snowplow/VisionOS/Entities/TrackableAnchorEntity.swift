@@ -12,7 +12,10 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
+
+#if canImport(ARKit)
 import ARKit
+#endif
 
 /// The type of TrackableAnchor.
 @objc(SPTrackableAnchorType)
@@ -51,12 +54,15 @@ public protocol ImageAnchorDetails {
     var nameDetails: String? { get }
 }
 
+#if canImport(ARKit)
 extension ARReferenceImage: ImageAnchorDetails {
     public var widthDetails: Double { return self.physicalSize.width }
     public var heightDetails: Double { return self.physicalSize.height }
     public var descriptionDetails: String { return self.description }
     public var nameDetails: String? { return self.name }
 }
+
+#endif
 
 /**
  Properties for the ARKit trackable anchor entity.
