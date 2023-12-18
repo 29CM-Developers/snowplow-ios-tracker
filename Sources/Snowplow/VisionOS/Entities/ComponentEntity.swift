@@ -56,7 +56,7 @@ public class ComponentEntity: SelfDescribingJson {
     /// - Parameter entityUuids: Unique IDs of the RealityKit entity(s) that this component is attached to.
     /// - Parameter componentDescription: Textual description of the component.
     @objc
-    init(
+    public init(
         id: UUID = UUID(),
         type: String,
         entityUuids: [UUID],

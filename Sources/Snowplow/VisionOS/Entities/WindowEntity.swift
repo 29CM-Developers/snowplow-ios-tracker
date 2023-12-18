@@ -26,7 +26,7 @@ public class WindowEntity: SelfDescribingJson {
     
     /// A string to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
     @objc
-    public var title: String?
+    public var titleKey: String?
     
     /// A specification for the appearance and interaction of a window.
     public var windowStyle: WindowStyle?
@@ -36,7 +36,7 @@ public class WindowEntity: SelfDescribingJson {
         get {
             var data: [String : Any] = [:]
             if let id = id { data["id"] = id }
-            if let title = title { data["title"] = title }
+            if let title = titleKey { data["title_key"] = title }
             if let style = windowStyle { data["window_style"] = style.value }
             return data
         }
@@ -44,28 +44,28 @@ public class WindowEntity: SelfDescribingJson {
     }
     
     /// - Parameter id: A unique string identifier that you can use to open the window.
-    /// - Parameter title: A string to use for the window's title in system menus and in the window's title bar.
+    /// - Parameter titleKey: A string to use for the window's title in system menus and in the window's title bar.
     /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     public init(
         id: String? = nil,
-        title: String? = nil,
+        titleKey: String? = nil,
         windowStyle: WindowStyle? = nil
     ) {
         self.id = id
-        self.title = title
+        self.titleKey = titleKey
         self.windowStyle = windowStyle
         super.init(schema: visionOsWindow, andData: [:])
     }
     
     /// - Parameter id: A unique string identifier that you can use to open the window.
-    /// - Parameter title: A string to use for the window's title in system menus and in the window's title bar.
+    /// - Parameter titleKey: A string to use for the window's title in system menus and in the window's title bar.
     @objc
     public init(
         id: String? = nil,
-        title: String? = nil
+        titleKey: String? = nil
     ) {
         self.id = id
-        self.title = title
+        self.titleKey = titleKey
         super.init(schema: visionOsWindow, andData: [:])
     }
     
