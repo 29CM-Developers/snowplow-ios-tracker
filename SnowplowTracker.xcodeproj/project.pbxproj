@@ -117,7 +117,6 @@
 		9F51A1A905EF358FB4778152 /* RequestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E16B9A15331B4923315912 /* RequestResult.swift */; };
 		9F60E8D32A928A3CB16A8351 /* MediaAdSkipEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AC2AA7A43AB74D7092FEEE /* MediaAdSkipEvent.swift */; };
 		A105EF2BB1C227A0EB2D523F /* GDPRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63F776E66ECE1F98E443477 /* GDPRController.swift */; };
-		A23E56963D24A68FE752D059 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929FACF1F14BE231F6C6B539 /* FMDB.framework */; };
 		A4FF656821A4BA90CC3058E8 /* ConfigurationBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C81F69A9AB285D13F795400 /* ConfigurationBundle.swift */; };
 		A6D3BBF3FF1E989042BA20F5 /* MediaPercentProgressEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7678F9B3E0078B25A502EC87 /* MediaPercentProgressEvent.swift */; };
 		A73D23FBC0DE9F751A28896E /* NetworkControllerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA89941F873D220E5B68AA /* NetworkControllerImpl.swift */; };
@@ -182,6 +181,7 @@
 		EF7F60EFB5AB5F7E4E815B3F /* RefundEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11535436FB4A8F3ED3971113 /* RefundEvent.swift */; };
 		F06DC728F3A302B7D1137E0A /* GDPRContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0B9B28DBB18CA10E3C7647 /* GDPRContext.swift */; };
 		F0ABD72A955C832922EAF27F /* PluginsControllerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD2CF832A496BD7DE7D783 /* PluginsControllerImpl.swift */; };
+		F27EE1562B342EE900EF9BF6 /* FMDB.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F27EE1552B342EE900EF9BF6 /* FMDB.xcframework */; };
 		F299FA39CD9644774ECE6856 /* LifecycleStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB65EC1C5F6027B1AFEA87 /* LifecycleStateMachine.swift */; };
 		F3A40BDBC9AE84EEDE5FEF4E /* ConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38E33E3337EBF44B873E0CE /* ConfigurationProtocol.swift */; };
 		F46A70DF151FA68C85177508 /* StateFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61774EABD49EABB7531DF509 /* StateFuture.swift */; };
@@ -381,6 +381,7 @@
 		F0848644762823B1D2A10CC1 /* InstallTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallTracker.swift; sourceTree = "<group>"; };
 		F1E8C8508D1AA015E66E475B /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		F25AB868C5E9BE34B9106E61 /* DevicePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicePlatform.swift; sourceTree = "<group>"; };
+		F27EE1552B342EE900EF9BF6 /* FMDB.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FMDB.xcframework; path = Carthage/Build/FMDB.xcframework; sourceTree = "<group>"; };
 		F2C8E3F4A168E962CF63FBF6 /* DataPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistence.swift; sourceTree = "<group>"; };
 		F2D67BE8D1DC3C376CBA7CB4 /* PluginStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginStateMachine.swift; sourceTree = "<group>"; };
 		F40130682573A948BB9CA511 /* MediaFullscreenChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFullscreenChangeEvent.swift; sourceTree = "<group>"; };
@@ -402,7 +403,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A23E56963D24A68FE752D059 /* FMDB.framework in Frameworks */,
+				F27EE1562B342EE900EF9BF6 /* FMDB.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +435,7 @@
 		0F214EFE52E9940F12099650 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F27EE1552B342EE900EF9BF6 /* FMDB.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
