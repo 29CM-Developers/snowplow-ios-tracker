@@ -212,6 +212,7 @@
 		F0ABD72A955C832922EAF27F /* PluginsControllerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CD2CF832A496BD7DE7D783 /* PluginsControllerImpl.swift */; };
 		F299FA39CD9644774ECE6856 /* LifecycleStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDB65EC1C5F6027B1AFEA87 /* LifecycleStateMachine.swift */; };
 		F29D0958A071FAEA7D2F1BBB /* ScreenSummaryStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA7DD61AE0EA056D929B0F /* ScreenSummaryStateMachine.swift */; };
+		F2BAFA932BC924B00093D72F /* FMDB.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2BAFA922BC924B00093D72F /* FMDB.xcframework */; };
 		F3A40BDBC9AE84EEDE5FEF4E /* ConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38E33E3337EBF44B873E0CE /* ConfigurationProtocol.swift */; };
 		F46A70DF151FA68C85177508 /* StateFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61774EABD49EABB7531DF509 /* StateFuture.swift */; };
 		F476900283BCA8BAA6AF02A9 /* SessionControllerIQWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BE334773F13123FC7BEE3D /* SessionControllerIQWrapper.swift */; };
@@ -224,19 +225,6 @@
 		FF0407927705108D3F14A03E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C40F817621821BE5AC61723 /* Utilities.swift */; };
 		FF247CA2B540E9015731B53D /* DismissImmersiveSpaceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FABDC29EF978EFDDF101153 /* DismissImmersiveSpaceEvent.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C1520D580DBCA8D5B22F2BC9 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00FE305C14EC16B2E7A36001 /* CrossDeviceParameterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossDeviceParameterConfiguration.swift; sourceTree = "<group>"; };
@@ -440,6 +428,7 @@
 		F1636F07C84253F4D0C80582 /* OpenWindowEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWindowEvent.swift; sourceTree = "<group>"; };
 		F1E8C8508D1AA015E66E475B /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		F25AB868C5E9BE34B9106E61 /* DevicePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicePlatform.swift; sourceTree = "<group>"; };
+		F2BAFA922BC924B00093D72F /* FMDB.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FMDB.xcframework; path = Carthage/Build/FMDB.xcframework; sourceTree = "<group>"; };
 		F2C8E3F4A168E962CF63FBF6 /* DataPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistence.swift; sourceTree = "<group>"; };
 		F2D67BE8D1DC3C376CBA7CB4 /* PluginStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginStateMachine.swift; sourceTree = "<group>"; };
 		F3BE334773F13123FC7BEE3D /* SessionControllerIQWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionControllerIQWrapper.swift; sourceTree = "<group>"; };
@@ -464,6 +453,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2BAFA932BC924B00093D72F /* FMDB.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +677,7 @@
 				5FF8E367FC23F185052A0323 /* Project */,
 				294FAF0E706B7CDB9C5D866A /* Compiled */,
 				247A7D46581F69173735FACE /* Products */,
+				F2BAFA912BC924B00093D72F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1004,6 +995,14 @@
 			path = Session;
 			sourceTree = "<group>";
 		};
+		F2BAFA912BC924B00093D72F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2BAFA922BC924B00093D72F /* FMDB.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F3D5439C71073F8742FB990B /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -1087,7 +1086,6 @@
 			buildPhases = (
 				CAC54C92E8219546750745BF /* Sources */,
 				75C2A0F42E75864F0E80DB01 /* Resources */,
-				C1520D580DBCA8D5B22F2BC9 /* Embed Frameworks */,
 				F9CC394D155CC5C380A61988 /* Frameworks */,
 			);
 			buildRules = (
