@@ -1,0 +1,6 @@
+# APPDEV-28698: Xcode 작업공간의 저장소 식별자와 UUID를 인증 키로 탐지한 오탐 4건만 제외한다.
+# 현재 파일은 없으며, 정확한 commit/path/rule/line fingerprint로 이력의 예외 범위를 제한한다.
+de1d589aa2179b4dc1d81bc2f3bcbc6d3bbeae2b:Snowplow.xcworkspace/xcshareddata/Snowplow.xcscmblueprint:generic-api-key:2
+de1d589aa2179b4dc1d81bc2f3bcbc6d3bbeae2b:Snowplow.xcworkspace/xcshareddata/Snowplow.xcscmblueprint:generic-api-key:10
+de1d589aa2179b4dc1d81bc2f3bcbc6d3bbeae2b:Snowplow.xcworkspace/xcshareddata/Snowplow.xcscmblueprint:generic-api-key:22
+de1d589aa2179b4dc1d81bc2f3bcbc6d3bbeae2b:Snowplow.xcworkspace/xcshareddata/Snowplow.xcscmblueprint:generic-api-key:27
